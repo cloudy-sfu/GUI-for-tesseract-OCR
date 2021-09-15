@@ -1,4 +1,4 @@
-# OCR (win64) GUI for Tesseract
+# GUI: Tesseract OCR
  The GUI for Tesseract OCR software in Windows 64-bit platform
 
 ![](https://img.shields.io/badge/OS-Windows%2064--bit-lightgrey)

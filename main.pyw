@@ -7,18 +7,14 @@ import subprocess
 
 
 def get_ocr_path():
+    ocr_path = [r'C:\Program Files (x86)\Tesseract-OCR']
     try:
         with open('tesseracts_path', 'r') as f:
-            configured_path = f.read()
+            ocr_path.append(f.read())
     except FileNotFoundError:
-        with open('tesseracts_path', 'w') as _:
-            pass
-        configured_path = ''
-    ocr_path = [
-        configured_path,
-        os.path.join(r'C:\Users', os.environ['USERNAME'], r'AppData\Local\Tesseract-OCR'),
-        r'C:\Program Files (x86)\Tesseract-OCR',
-    ]
+        pass
+    if 'USERNAME' in os.environ.keys():
+        ocr_path.append(os.path.join(r'C:\Users', os.environ['USERNAME'], r'AppData\Local\Tesseract-OCR'))
     for location in ocr_path:
         if os.path.isdir(location):
             return location

@@ -1,4 +1,4 @@
-# GUI: Tesseract OCR
+# GUI for "tesseract" OCR
 
  The GUI for Tesseract OCR software in Windows 64-bit platform
 

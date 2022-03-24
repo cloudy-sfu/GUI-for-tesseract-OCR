@@ -16,13 +16,11 @@ Tesseract OCR: https://github.com/tesseract-ocr/tesseract
 
 ## Usage
 
-### 1. Developers
+**End user**: Download from the latest release, unzip and run `gui_for_tesseract_ocr.exe`.
 
-1. Compile from source code and embed it at the Python project directory. In this case, you should modify `get_ocr_path` and set Tesseract installation path as the current directory.
-2. Run `pip install -r requirements.txt`.
-3. Run `main.pyw`.
+**Developer**:
 
-### 2. Ordinary users
-
-1. Download Tesseract for Windows at [this webpage](https://digi.bib.uni-mannheim.de/tesseract/) and install it, following the guidance of setup program.
-2. Get the latest release of this software and run `main.exe`.
+```bash
+pip install -r requirements.txt
+pyinstaller gui_for_tesseract_ocr.spec
+```

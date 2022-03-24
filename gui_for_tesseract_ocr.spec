@@ -6,7 +6,9 @@ block_cipher = None
 
 a = Analysis(['main.py'],
              pathex=[],
-             binaries=[],
+             binaries=[
+             ('venv/Lib/site-packages/pywebio', 'pywebio')
+             ],
              datas=[],
              hiddenimports=[],
              hookspath=[],

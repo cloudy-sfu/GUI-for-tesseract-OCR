@@ -8,7 +8,7 @@
 
 ## Introduction
 
-This software is the graphic interface for Tesseract OCR software. When the user inputs a image by clipboard or file, the software can recognize the characters in English and Chinese and display the text on the interface.
+This software is the graphic interface for [Tesseract OCR](https://github.com/tesseract-ocr/tesseract) software.  When the user inputs a image by uploading a file, the software recognizes the characters in selected language and display the text contained in the image.
 
 ## Acknowledgement
 

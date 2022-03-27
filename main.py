@@ -4,71 +4,79 @@ import subprocess
 
 import pywebio
 
-if os.path.exists('./config.json'):
-    with open('./config.json', 'r') as f_config:
-        config = json.load(f_config)
-    if not (
-        isinstance(config, dict) and
-        'language' in config.keys() and
-        isinstance(config.get('language'), list) and
-        'installed_path' in config.keys() and
-        isinstance(config.get('installed_path'), str)
-    ):
-        config = {'language': [], 'installed_path': ''}
-else:
-    config = {'language': [], 'installed_path': ''}
-if not os.path.isdir(config['installed_path']):
+
+def _change_path(config_, user_assigned_path=None):
     ocr_path = [r'C:\Program Files (x86)\Tesseract-OCR', r'C:\Program Files\Tesseract-OCR']
     if 'USERNAME' in os.environ.keys():
         ocr_path.append(os.path.join(r'C:\Users', os.environ['USERNAME'], r'AppData\Local\Tesseract-OCR'))
+    if user_assigned_path is not None:
+        ocr_path.append(user_assigned_path)
     for location in ocr_path:
         if os.path.isdir(location):
-            config['installed_path'] = location
+            config_['installed_path'] = location
+            for file in os.listdir(os.path.join(location, 'tessdata')):
+                filename, extension = os.path.splitext(file)
+                if extension == '.traineddata':
+                    config_['language'].append(filename)
             break
-if os.path.isdir(config['installed_path']):
-    for file in os.listdir(os.path.join(config['installed_path'], 'tessdata')):
-        filename, extension = os.path.splitext(file)
-        if extension == '.traineddata':
-            config['language'].append(filename)
+    return config_
+
+
+config = {'installed_path': '', 'language': []}
+if os.path.exists('./config.json'):
+    with open('./config.json', 'r') as f_config:
+        config = json.load(f_config)
+if not (
+    isinstance(config, dict) and
+    'language' in config.keys() and
+    isinstance(config.get('language'), list) and
+    'installed_path' in config.keys() and
+    isinstance(config.get('installed_path'), str) and
+    os.path.isdir(config['installed_path'])
+):
+    try:
+        config = _change_path(config)
+    except FileNotFoundError:
+        pass
 
 
 def change_path():
     pywebio.output.put_markdown('[Back](/?app=index) to the index page.')
     tesseract = pywebio.input.input(label='"Tesseract OCR" installed at')
-    if os.path.isdir(tesseract):
-        config['installed_path'] = tesseract
-        for file_ in os.listdir(os.path.join(config['installed_path'], 'tessdata')):
-            filename_, extension_ = os.path.splitext(file_)
-            if extension_ == '.traineddata':
-                config['language'].append(filename_)
-        with open('./config.json', 'w') as f:
-            json.dump(config, f)
-        pywebio.output.put_text('Successfully find "Tesseract OCR" here.')
-    else:
-        pywebio.output.put_text('Cannot find "Tesseract OCR" here.')
+    config_1 = {'installed_path': '', 'language': []}
+    try:
+        config_1 = _change_path(config_=config_1, user_assigned_path=tesseract)
+        if os.path.isdir(tesseract):
+            with open('./config.json', 'w') as f:
+                json.dump(config_1, f)
+            pywebio.output.put_info('Successfully find "Tesseract OCR" here.')
+    except FileNotFoundError:
+        pywebio.output.put_error('Cannot find "Tesseract OCR" here.')
 
 
 def index():
     pywebio.output.put_markdown(f"""
-        # GUI for "Tesseract OCR"
+        # GUI for "tesseract" OCR
         
-        Authored by [cloudy-sfu](https://github.com/cloudy-sfu/) in 2022.
+        This software is the graphic interface for [Tesseract OCR](https://github.com/tesseract-ocr/tesseract) software.
+        When the user inputs a image by uploading a file, the software recognizes the characters in selected language 
+        and display the text contained in the image.
         
-        ## Installation
+        ## Tesseract
         
-        "Tesseract OCR" installed at
+        Installation path of "Tesseract OCR" software:
         ```
         {config['installed_path']}
         ```
         <center><a href="/?app=change_path">Change</a></center>
         
-        ## OCR workspace
+        ## OCR
         
-        Please keep patient when waiting for the OCR result.
+        Please keep patient when waiting for the OCR result. If refreshing the page, you'll loss access to the result.
     """)
 
     if config['language'] and config['installed_path'] and os.path.isdir(config['installed_path']):
-        data = pywebio.input.input_group('OCR', [
+        data = pywebio.input.input_group('', [
             pywebio.input.file_upload('Upload the image', name='image'),
             # https://pywebio.readthedocs.io/en/latest/input.html?highlight=select#pywebio.input.select
             pywebio.input.select('Language', options=[
@@ -87,6 +95,10 @@ def index():
         else:
             with open('clipboard.txt', 'r', encoding='utf-8') as f:
                 content = f.read()
+            pywebio.output.put_markdown("""
+            ## Result
+            Recognition another image [again](/?app=index).
+            """)
             pywebio.output.put_success(content)
     else:
         pywebio.output.put_markdown('Cannot find "Tesseract OCR" or supported language, please assign a installed'

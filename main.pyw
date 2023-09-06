@@ -9,8 +9,8 @@ from ocr_wrapper import BatchOCR, SingleOCR, ClipboardOCR, pixmap_to_pillow_imag
 class MyWindow(QMainWindow):
     def __init__(self):
         super(MyWindow, self).__init__(flags=Qt.Window)
-        dpi = self.screen().logicalDotsPerInch() / 96
-        font_size = 14 if dpi <= 1 else (12 if 1 < dpi <= 1.25 else (10 if 1.25 < dpi <= 1.5 else 8))
+        dpi = self.screen().logicalDotsPerInch()
+        font_size = max(6, round(22 - dpi / 12))
         self.setStyleSheet(f'font-family: "Microsoft YaHei", Calibri, Ubuntu; font-size: {font_size}pt;')
         self.resize(1280, 720)
         self.setWindowTitle('Chinese and English OCR')

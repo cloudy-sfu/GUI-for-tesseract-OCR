@@ -7,4 +7,3 @@ PyQt5==5.15.9
 PyQt5-Qt5==5.15.2
 PyQt5-sip==12.11.1
 pywin32-ctypes==0.2.0
-tesserocr @ https://github.com/simonflueckiger/tesserocr-windows_build/releases/download/tesserocr-v2.5.2-tesseract-5.3.0/tesserocr-2.5.2-cp310-cp310-win_amd64.whl

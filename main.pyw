@@ -1,7 +1,7 @@
 import os
 import sys
 
-import tesserocr  # must be before PyQt5
+import tesserocr
 from PyQt5.Qt import *
 from PyQt5.QtWidgets import *
 

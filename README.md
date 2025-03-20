@@ -13,16 +13,33 @@ From release:
 
 From source code:
 
-1. Download the "tesseract" wheel package from https://github.com/simonflueckiger/tesserocr-windows_build/releases For example, the downloaded filename is `tesserocr-2.6.0-cp311-cp311-win_amd64.whl`. Put it at the program root directory, and run `pip install tesserocr-2.6.0-cp311-cp311-win_amd64.whl `.
-2. Run `pip install -r requirements.txt`.
-3. To compile a release version, run `pyinstaller main.spec`.
+1. Create a Python 3.12 virtual environment.
+
+2. Set the program's root directory as the current folder.
+
+3. Run the following commands.
+    ```
+    pip install -r requirements.txt
+    ```
+
+4. (Optional) To compile to an executable file, run the following command.
+    ```
+    python solve_msvcp140_conflict.py
+    pyinstaller main.spec
+    ```
+
+> [!NOTE]
+>
+> Not Windows 10 64-bit, Python 3.12?
+>
+> Before starting step 3, go to https://github.com/simonflueckiger/tesserocr-windows_build/releases and download corresponding Tesseract package, and delete `tesserocr` line in `requirements.txt`.
 
 ## Usage
 
 1. By default, we provide an English language model in the installation package. Click `Help | Version and supported language ` to find installed language models.
     ![image-20230212142100249](./assets/image-20230212142100249.png)
 
-If the languages you want are not supported: 
+If the languages you want are not supported:
 
 3.   Click `File | Download pretrained language models ` to find the language models. The program will call your default web browser and direct you to the download page.
      ![image-20230212142123835](./assets/image-20230212142123835.png)
@@ -40,4 +57,6 @@ If the languages you want are not supported:
 
 ## Acknowledgment
 
-Pretrained OCR models: [Tessdata](https://github.com/tesseract-ocr/tessdata/tree/4767ea922bcc460e70b87b1d303ebdfed0897da8)
+[Tessdata](https://github.com/tesseract-ocr/tessdata/tree/4767ea922bcc460e70b87b1d303ebdfed0897da8) for pretrained models
+
+[Tesserocr Windows build](https://github.com/simonflueckiger/tesserocr-windows_build)

@@ -1,12 +1,14 @@
 altgraph==0.17.4
+msvc_runtime==14.42.34433
 packaging==24.2
 pefile==2023.2.7
 pillow==11.1.0
+pipdeptree==2.24.0
 pyinstaller==6.11.1
 pyinstaller-hooks-contrib==2025.0
 PyQt5==5.15.11
 PyQt5-Qt5==5.15.2
-PyQt5_sip==12.16.1
+PyQt5_sip==12.17.0
 pywin32-ctypes==0.2.3
 setuptools==75.8.0
-tesserocr @ https://github.com/simonflueckiger/tesserocr-windows_build/releases/download/tesserocr-v2.7.1-tesseract-5.4.1/tesserocr-2.7.1-cp312-cp312-win_amd64.whl#sha256=89beecd1f8143360d61f1ae29b64139d881a79cc06a61b5ab5455eff5ab4419f
+tesserocr @ file:///C:/Users/cloudy/PycharmProjects/GUI-for-tesseract-OCR/raw/tesserocr-2.8.0-cp312-cp312-win_amd64.whl#sha256=e1226f6c38843f286661aa782414ad9683041737a9c6d5fecd85a08613dbe539

@@ -11,4 +11,4 @@ PyQt5-Qt5==5.15.2
 PyQt5_sip==12.17.0
 pywin32-ctypes==0.2.3
 setuptools==75.8.0
-tesserocr @ file:///C:/Users/cloudy/PycharmProjects/GUI-for-tesseract-OCR/raw/tesserocr-2.8.0-cp312-cp312-win_amd64.whl#sha256=e1226f6c38843f286661aa782414ad9683041737a9c6d5fecd85a08613dbe539
+tesserocr @ https://github.com/simonflueckiger/tesserocr-windows_build/releases/download/tesserocr-v2.8.0-tesseract-5.5.0/tesserocr-2.8.0-cp312-cp312-win_amd64.whl
